@@ -1,0 +1,27 @@
+program Project1;
+
+var     x,y, a, max: int64;
+         i,k: longint;
+begin
+    readln(a);
+    k:=0;  x:=a;
+    repeat
+       x:=x div 2;
+       inc(k);
+    until x=0;
+    dec(k);
+
+    y:=1;
+    y:=y shl k;
+
+    max:=a;
+    for i := 1 to k do
+    begin
+         if odd(a) then  begin a:=a shr 1;  a:=a+y;  end
+         else a:=a shr 1;
+         if a>max then max:=a;
+    end;
+
+    writeln(max);
+   readln;
+end.
