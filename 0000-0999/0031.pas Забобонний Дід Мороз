@@ -1,0 +1,61 @@
+program aaa6;
+var k,a,b,x,d,m,n,i,dn,g: integer;
+
+procedure nextday(var d,m,g: integer); //за заданим днем змінює дату на 1 день вперед
+begin
+   d:=d+1;   //збільшуєм день на 1
+   case m of
+   2:   if (g mod 4 =0)and(d>29) then // якщо місяць лютий, високосний рік і ми отримали число30 то змінюємо місяць на наструпний
+        begin
+          inc(m);     d:=1
+        end
+        else if (g mod 4 <>0)and(d>=29) then
+        begin
+          inc(m);     d:=1
+        end;
+   4,6,9,11: if d>=31 then
+            begin
+              inc(m);   d:=1
+            end;
+   1,3,5,7,8,10: if d>=32 then
+            begin
+              inc(m);   d:=1
+            end;
+   12: if d>=32 then
+            begin
+              inc(g);  m:=1;  d:=1
+            end;
+   end;
+   exit;
+end;
+
+begin
+   readln(n);
+   k:=0;
+
+   for i := 1 to n do
+   begin
+      readln(a,b);
+      dn:=3;  g:=1920;
+      d:=1;
+      m:=1;
+       while g<a do
+        if (g mod 4=0) then
+        begin
+            dn:=(dn+2)mod 7;
+            inc(g)
+        end  else
+        begin
+            dn:=(dn+1)mod 7;
+            inc(g)
+        end ;
+
+      while g<=b do
+      begin      
+         if (d=13)and(dn=4) then  inc(k);   nextday(d,m,g);   dn:=(dn+1) mod 7;      
+      end;
+
+   end;
+   writeln(k);
+   readln;
+end.
