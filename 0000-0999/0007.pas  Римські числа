@@ -1,0 +1,69 @@
+program roma;
+
+var s,s1,s2,st: string;
+    ch :char;
+    i,j,k,r,x,y,l1,l2: integer;
+    a,b: array [0..100] of integer;
+    Rome: array [1..13] of string = ('M','CM','D','CD','C','XC','L','XL','X','IX','V','IV','I');
+    Arab: array [1..13] of integer = (1000, 900, 500,400,100,90,50,40,10,9,5,4,1);
+begin
+    readln(s);
+    k:=pos('+',s);
+    s1:=copy(s,1,k-1);
+    s2:=copy(s, k+1, length(s)-k);
+    L1:=length(s1);
+    L2:=length(s2);
+
+    //перетворюєм перше число в арабське
+    for i := 1 to l1 do
+       case s1[i] of
+       'I':  a[i]:=1;
+       'V':  a[i]:=5;
+       'X':  a[i]:=10;
+       'L': a[i]:=50;
+       'C': a[i]:=100;
+       'D': a[i]:=500;
+       'M': a[i]:=1000;
+       end;
+   x:=a[1];
+   for i := 2 to L1 do
+   begin
+     x:=x+a[i];
+     if a[i]>a[i-1] then x:=x-2*a[i-1];
+   end;
+
+    //перетворюєм друге число в арабське
+   for i := 1 to L2 do
+       case s2[i] of
+       'I':  b[i]:=1;
+       'V':  b[i]:=5;
+       'X':  b[i]:=10;
+       'L':  b[i]:=50;
+       'C':  b[i]:=100;
+       'D':  b[i]:=500;
+       'M':  b[i]:=1000;
+       end;
+   y:=b[1];
+   for i := 2 to L2 do
+   begin
+     y:=y+b[i];
+     if b[i]>b[i-1] then y:=y-2*b[i-1];
+   end;
+
+   //додаєм
+   r:=x+y;
+
+   st:='';         //перевод из арабской в римську
+   i:=0;
+   while r>0 do
+   begin
+      inc(i);
+      while r>=arab[i] do
+      begin
+          r:=r-arab[i];
+          st:=st+rome[i];
+      end;
+   end;
+   writeln(st);
+  
+end.
