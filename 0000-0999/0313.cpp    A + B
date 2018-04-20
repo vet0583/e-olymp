@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
+
+using namespace std;
+
+int main()
+{	
+ 	string s1, s2, s, sr;
+ 	int l1, l2, l, k,n,m,lmax ,sum, ost;
+ 	char  ch;
+ 	
+  cin >> n;	
+  for(int p=1; p<=n; p++)
+  { 	 	
+	cin >> s;                      //вводимо новий рядок
+ 	l = s.size();
+ 	k = s.find('+');  
+ 	
+	s1 = s.substr(0, k);           //розділяємо на 2 рядки s1 i  s2
+ 	l1 = s1.size();
+ 	s2 = s.substr(k+1,  l-k-1);
+ 	l2 = s2.size();
+ 	
+ 	for(int i=0; i < l1/2; ++i)  swap(s1[i], s1[l1-i-1]);    //перевертаємо рядки, проходячи по рядку до половини і 
+ 	for(int i=0; i < l2/2; ++i)  swap(s2[i], s2[l2-i-1]);     //міняємо місцями передні та задні символи
+	
+	lmax=max(l1,l2);                 //визначаємо довжину більшого рядка
+	s1.resize(lmax, '0');            //робимо обидва рядки однакової довжини (як більший)
+	s2.resize(lmax, '0');            //при цьому спереду! пусті місця будуть заповнені 0
+	
+	ost = 0;   sr = "";            
+	for(int i=0; i<lmax; ++i)           //додаємо 2 рядки 
+	{                                   //оскільки вони однакової довжини lmax - ми проходимо весь рядок повністю!
+		sum = s1[i]+s2[i]-96 + ost;
+		ch = sum%10 + '0';                 // !один з варіантів отримати з числа символ
+		sr = ch + sr;
+		ost = sum/10;
+	}
+	
+	if (ost > 0)  sr = char(ost+'0') + sr;     //якщо залишилася остача - дописуємо  її спереду
+	cout << sr << endl;
+  }
+}
